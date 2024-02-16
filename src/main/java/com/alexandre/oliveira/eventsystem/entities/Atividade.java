@@ -1,8 +1,8 @@
-package com.alexandre.oliveira.eventsystem;
+package com.alexandre.oliveira.eventsystem.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_atividade")
@@ -14,9 +14,19 @@ public class Atividade {
     private String descricao;
     private Double preco;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    @OneToMany(mappedBy = "atividade")
+    private List<Bloco> blocos = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "atividades")
+    private Set<Participante> participantes = new HashSet<>();
+
     public Atividade() {}
 
-    public Atividade(Integer id, String nome, String descricao, Double preco) {
+    public Atividade(Integer id, String nome, String descricao, Double preco, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -53,6 +63,30 @@ public class Atividade {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public List<Bloco> getBlocos() {
+        return blocos;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public void addBloco(Bloco bloco) {
+        this.blocos.add(bloco);
+    }
+
+    public Set<Participante> getParticipantes() {
+        return participantes;
+    }
+
+    public void addParticipante(Participante participante){
+        participantes.add(participante);
     }
 
     @Override

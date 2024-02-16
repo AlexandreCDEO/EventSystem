@@ -1,7 +1,9 @@
-package com.alexandre.oliveira.eventsystem;
+package com.alexandre.oliveira.eventsystem.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +15,9 @@ public class Categoria {
     private String nome;
     private String descricao;
     private Double preco;
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Atividade> atividades = new ArrayList<>();
 
     public Categoria() {}
 
@@ -53,6 +58,14 @@ public class Categoria {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public List<Atividade> getAtividades() {
+        return atividades;
+    }
+
+    public void addAtividade(Atividade atividade){
+        this.atividades.add(atividade);
     }
 
     @Override
