@@ -5,20 +5,22 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_participante")
-public class Participante {
+@Table(name = "tb_atividade")
+public class Atividade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private String email;
+    private String descricao;
+    private Double preco;
 
-    public Participante() {}
+    public Atividade() {}
 
-    public Participante(Integer id, String nome, String email) {
+    public Atividade(Integer id, String nome, String descricao, Double preco) {
         this.id = id;
         this.nome = nome;
-        this.email = email;
+        this.descricao = descricao;
+        this.preco = preco;
     }
 
     public Integer getId() {
@@ -37,12 +39,20 @@ public class Participante {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
     @Override
@@ -50,9 +60,9 @@ public class Participante {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Participante that = (Participante) o;
+        Atividade atividade = (Atividade) o;
 
-        return Objects.equals(id, that.id);
+        return Objects.equals(id, atividade.id);
     }
 
     @Override
